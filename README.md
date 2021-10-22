@@ -72,3 +72,14 @@ https://github.com/sass/node-sass
 
 これを入れると、mixinsなどがコンポーネント外部から参照できるようになり便利であるので一緒に入れる。
 
+## 起動
+
+Nuxt
+```
+yann dev
+```
+
+Storybook
+```
+yarn nuxt storybook
+```
