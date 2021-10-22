@@ -28,6 +28,14 @@ yarn nuxt storybook
 
 解決し、起動できた。
 
+
+## Tailwind CSSのインストール
+
+公式通りに行う
+
+https://tailwindcss.com/docs/guides/nuxtjs
+
+
 ## SCSSを使えるように
 
 たいてい、nuxtをインストールするだけだとSCSSを使うときここで引っかかる。
@@ -64,4 +72,3 @@ https://github.com/sass/node-sass
 
 これを入れると、mixinsなどがコンポーネント外部から参照できるようになり便利であるので一緒に入れる。
 
-## 
