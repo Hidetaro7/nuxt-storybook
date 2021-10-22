@@ -1,13 +1,11 @@
 <template>
   <div class="test text-red-500 md:text-blue-500">
-    test component
+    <span class="text-xl">test component</span>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>
