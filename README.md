@@ -6,13 +6,13 @@
 https://nuxtjs.org/docs/get-started/installation
 
 ```
-yarn create nuxt-app <project-name>
+$ yarn create nuxt-app <project-name>
 ```
 おそらく起動するだろう
 
 ```
-cd <project-name>
-yarn dev
+$ cd <project-name>
+$ yarn dev
 ```
 
 ## install nuxt-storybook
@@ -23,7 +23,7 @@ core-jsのaddとnuxt.config.jsへの記述を忘れすに。
 https://github.com/nuxt/nuxt.js/issues/5287#issuecomment-622660147
 
 ```
-yarn nuxt storybook
+$ yarn nuxt storybook
 ```
 
 解決し、起動できた。
@@ -41,19 +41,19 @@ https://tailwindcss.com/docs/guides/nuxtjs
 たいてい、nuxtをインストールするだけだとSCSSを使うときここで引っかかる。
 
 ```
-yarn add --dev node-sass sass-loader @nuxtjs/style-resources
+$ yarn add --dev node-sass sass-loader @nuxtjs/style-resources
 ```
 エラーが起こる、原因の詳細は以下に示すが、これで動作した。
 
 ```
-yarn remove node-sass sass-loader
+$ yarn remove node-sass sass-loader
 ```
 
 私の環境に合わせ、node-sassのバージョンを調べる、調べ方は下記に示しておいた。
 
 （node 14.16.0の場合）
 ```
-yarn add -D sass-loader@10.2.0 node-sass@4.14.1
+$ yarn add -D sass-loader@10.2.0 node-sass@4.14.1
 ```
 
 
@@ -76,10 +76,51 @@ https://github.com/sass/node-sass
 
 Nuxt
 ```
-yann dev
+$ yann dev
 ```
 
 Storybook
 ```
-yarn nuxt storybook
+$ yarn nuxt storybook
 ```
+
+## Google Cloud Platform, Google App Engineにデプロイ
+
+GCP側でプロジェクトを作成する
+
+app.yamlファイルを公式通り、ルートに置く
+https://nuxtjs.org/ja/deployments/google-appengine/
+
+ただし、SPAモードの場合はうまくいかない、サーバーエラーが起こる。
+理由は静的ファイルとして出力したディレクトリやパスが違う。
+SPAモードの場合、以下のようにhandlers以下に変更を加える必要がある
+
+```
+runtime: nodejs14
+instance_class: F2
+handlers:
+  - url: /dist
+    static_dir: dist
+    secure: always
+  - url: /(.*\.(gif|png|jpg|ico|txt|svg))$
+    static_files: static/\1
+    upload: static/.*\.(gif|png|jpg|ico|txt|svg)$
+    secure: always
+  - url: /.*
+    script: auto
+    secure: always
+env_variables:
+  HOST: '0.0.0.0'
+
+```
+
+デプロイ前にgenerateしとく
+```
+$ yarn generate
+```
+
+```
+$ cloud app deploy app.yaml --project <PROJECT-ID>
+```
+
+ブラウザで確認する。
