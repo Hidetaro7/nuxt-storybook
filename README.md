@@ -120,7 +120,7 @@ $ yarn generate
 ```
 
 ```
-$ cloud app deploy app.yaml --project <PROJECT-ID>
+$ gcloud app deploy app.yaml --project kaeru-330507
 ```
 
 ブラウザで確認する。
